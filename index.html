@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order 4 | A Little Surprise — UNSAID</title>
+
+<style>
+:root {
+  --rose: #c83f62;
+  --deep: #803447;
+  --gold: #d8a45d;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--deep);
+  text-align: center;
+  background:
+    radial-gradient(circle at 15% 20%, #ffffffcc 0 2px, transparent 4px),
+    radial-gradient(circle at 80% 30%, #fff8d8aa 0 2px, transparent 5px),
+    linear-gradient(135deg, #fff5ed, #f8d6d9 52%, #fce9d7);
+  background-size: 150px 150px, 190px 190px, cover;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 30px 16px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  animation: appear .7s ease both;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.eyebrow {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font: 12px Arial, sans-serif;
+  color: #a25a67;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-size: clamp(38px, 8vw, 66px);
+  font-weight: normal;
+  margin: 10px 0 18px;
+  color: #843c40;
+}
+
+h2 {
+  font-size: clamp(27px, 5vw, 39px);
+  font-weight: normal;
+  margin: 10px 0 20px;
+}
+
+p {
+  max-width: 620px;
+  font-size: clamp(17px, 3.5vw, 21px);
+  line-height: 1.8;
+  margin: 10px auto;
+}
+
+.script {
+  font-style: italic;
+}
+
+.heart {
+  color: #db5770;
+}
+
+button {
+  border: 0;
+  color: white;
+  background: linear-gradient(135deg, #d84e6b, #b52e54);
+  padding: 14px 25px;
+  border-radius: 999px;
+  font: 17px Georgia, serif;
+  margin: 22px 6px 0;
+  cursor: pointer;
+  box-shadow: 0 8px 22px #a72d4a2b;
+  transition: transform .2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+.panel {
+  width: min(680px, 100%);
+  padding: clamp(25px, 6vw, 48px);
+  border: 1px solid #ffffffd9;
+  border-radius: 28px;
+  background: #fffaf3c9;
+  box-shadow: 0 18px 60px #9a46501c;
+  backdrop-filter: blur(5px);
+}
+
+.divider {
+  color: #d75a70;
+  font-size: 25px;
+  margin: 16px 0;
+  letter-spacing: 8px;
+}
+
+/* GIFT BOX */
+.gift-scene {
+  width: 220px;
+  height: 190px;
+  margin: 25px auto 5px;
+  position: relative;
+  filter: drop-shadow(0 15px 15px #8f3d4225);
+  animation: bob 3s ease-in-out infinite;
+}
+
+.gift-box {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 125px;
+  border-radius: 8px 8px 16px 16px;
+  background: linear-gradient(120deg, #f5b5b2, #d96d7b);
+  border: 2px solid #fff0e8;
+}
+
+.gift-box:before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 17px);
+  background: #fbe0b8;
+}
+
+.gift-lid {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 112px;
+  height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(120deg, #ffd2c8, #e98c98);
+  border: 2px solid #fff0e8;
+  transform-origin: 10% 90%;
+  transition: transform .9s, translate .9s;
+  z-index: 2;
+}
+
+.gift-lid:before {
+  content: "";
+  position: absolute;
+  width: 34px;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 17px);
+  background: #fbe0b8;
+}
+
+.bow {
+  position: absolute;
+  left: 50%;
+  bottom: 134px;
+  z-index: 3;
+  width: 70px;
+  height: 34px;
+  transform: translateX(-50%);
+}
+
+.bow:before,
+.bow:after {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 26px;
+  border: 7px solid #fff0e8;
+  border-radius: 70% 70% 20% 70%;
+}
+
+.bow:before {
+  left: 1px;
+  transform: rotate(22deg);
+}
+
+.bow:after {
+  right: 1px;
+  transform: scaleX(-1) rotate(22deg);
+}
+
+.gift-scene.open .gift-lid {
+  transform: rotate(-22deg);
+  translate: -15px -35px;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.sparkles {
+  color: #d6a04d;
+  font-size: 24px;
+  letter-spacing: 14px;
+  margin: 12px 0;
+}
+
+/* HAMPER */
+.hamper {
+  margin: 24px auto 5px;
+  width: min(390px, 90%);
+  padding: 24px 20px;
+  border-radius: 20px;
+  border: 1px solid #e7b9a9;
+  background: linear-gradient(145deg, #f8d9d0, #fff7ee);
+  box-shadow: 0 15px 35px #873b4220;
+}
+
+.hamper-label {
+  display: inline-block;
+  border: 1px solid #d9a66e;
+  padding: 9px 18px;
+  letter-spacing: 4px;
+  font: 12px Arial, sans-serif;
+  background: #fff9f0;
+}
+
+.hamper-art {
+  font-size: clamp(45px, 10vw, 66px);
+  margin: 15px 0;
+}
+
+.signature {
+  font-size: clamp(25px, 5vw, 36px);
+  font-style: italic;
+  color: #a13c4b;
+}
+
+.small {
+  font-size: 15px;
+}
+
+/* FLOATING DECORATION */
+.floating {
+  position: fixed;
+  bottom: -30px;
+  z-index: -1;
+  pointer-events: none;
+  animation: floatUp 7s linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) rotate(0);
+    opacity: 0;
+  }
+  15% { opacity: .75; }
+  to {
+    transform: translateY(-115vh) rotate(35deg);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel {
+    padding: 25px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- YOUR UPLOADED MUSIC -->
+<audio id="bgm" loop preload="auto">
+  <source src="order4.mpeg"
+          type="audio/mpeg">
+</audio>
+
+<!-- SCREEN 1 -->
+<section id="screen1" class="screen active">
+  <div class="panel">
+    <div class="eyebrow">A little surprise • UNSAID</div>
+
+    <h1 class="script">
+      Hey! <span class="heart">♡</span>
+    </h1>
+
+    <p>Someone has a little surprise waiting for you...</p>
+
+    <div class="divider">— ♡ —</div>
+
+    <div class="gift-scene">
+      <div class="gift-box"></div>
+      <div class="gift-lid"></div>
+      <div class="bow"></div>
+    </div>
+
+    <p class="small">A little something, just for you.</p>
+
+    <button onclick="startSurprise()">
+      🎁 Open Your Surprise →
+    </button>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section id="screen2" class="screen">
+  <div class="panel">
+    <div class="eyebrow">A little note for you</div>
+
+    <h2 class="script">
+      Just a Little Message <span class="heart">♡</span>
+    </h2>
+
+    <p>
+      This is a small gesture to make you smile
+      and add a little happiness to your day.
+    </p>
+
+    <div class="divider">♡ ✦ ♡</div>
+
+    <p>
+      You deserve all the good things, all the happiness,
+      and many beautiful moments ahead.
+    </p>
+
+    <button onclick="goTo(3)">Next →</button>
+  </div>
+</section>
+
+<!-- SCREEN 3 -->
+<section id="screen3" class="screen">
+  <div class="panel">
+    <div class="eyebrow">With warm wishes</div>
+
+    <h2 class="script">
+      A Little Gift<br>
+      with Lots of Good Wishes <span class="heart">♡</span>
+    </h2>
+
+    <p>It's our way of saying that you deserve a little treat.</p>
+
+    <div class="sparkles">✧ ✦ ✧</div>
+
+    <button onclick="openGift()">🎁 Let's Open It →</button>
+  </div>
+</section>
+
+<!-- SCREEN 4 -->
+<section id="screen4" class="screen">
+  <div class="panel">
+    <div class="eyebrow">Made with care</div>
+
+    <h2 class="script">
+      Opening Your Gift <span class="heart">♡</span>
+    </h2>
+
+    <div class="gift-scene" id="giftReveal">
+      <div class="gift-box"></div>
+      <div class="gift-lid"></div>
+      <div class="bow"></div>
+    </div>
+
+    <div class="sparkles">✧ ✦ ✧</div>
+
+    <p>Your little surprise is here!</p>
+
+    <button onclick="goTo(5)">
+      Reveal Your UNSAID Hamper →
+    </button>
+  </div>
+</section>
+
+<!-- SCREEN 5 -->
+<section id="screen5" class="screen">
+  <div class="panel">
+    <div class="eyebrow">A little package of happiness</div>
+
+    <h2 class="script">
+      Your UNSAID Hamper <span class="heart">♡</span>
+    </h2>
+
+    <p>A small gift, chosen to bring a smile to your face.</p>
+
+    <div class="hamper">
+      <div class="hamper-label">
+        UNSAID <span class="heart">♥</span>
+      </div>
+
+      <div class="hamper-art">🎀 💝 🎁</div>
+
+      <p class="small">Thoughtful little things, packed with care.</p>
+    </div>
+
+    <p>Hope you enjoy this little surprise!</p>
+
+    <button onclick="goTo(6)">One Last Message →</button>
+  </div>
+</section>
+
+<!-- SCREEN 6: FINAL MESSAGE -->
+<section id="screen6" class="screen">
+  <div class="panel">
+    <div class="eyebrow">From the heart</div>
+
+    <h2 class="script">
+      Hope You Like It! <span class="heart">♡</span>
+    </h2>
+
+    <p>
+      A little gift, a little surprise,
+      and a little happiness just for you.
+    </p>
+
+    <p>
+      May your days be filled with joy, love,
+      and many beautiful moments ahead.
+    </p>
+
+    <div class="divider">♡ ✦ ♡</div>
+
+    <p>With love,</p>
+
+    <p class="signature">
+      Your Brother <span class="heart">♡</span>
+    </p>
+
+    <button onclick="finish()">Keep Smiling Always ♡</button>
+  </div>
+</section>
+
+<script>
+const bgm = document.getElementById("bgm");
+let musicStarted = false;
+
+function startMusic() {
+  if (!bgm.paused) {
+    musicStarted = true;
+    return;
+  }
+
+  bgm.volume = 0.22;
+
+  bgm.play()
+    .then(() => {
+      musicStarted = true;
+    })
+    .catch(() => {
+      musicStarted = false;
+      console.warn(
+        "Check that the uploaded MP3 is in the same folder as index.html."
+      );
+    });
+}
+
+function startSurprise() {
+  startMusic();
+  goTo(2);
+}
+
+function goTo(number) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("screen" + number).classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  if (!musicStarted) {
+    startMusic();
+  }
+}
+
+function openGift() {
+  document.getElementById("giftReveal").classList.add("open");
+
+  startMusic();
+
+  setTimeout(() => {
+    goTo(4);
+  }, 850);
+}
+
+function finish() {
+  bgm.pause();
+  bgm.currentTime = 0;
+  musicStarted = false;
+
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
+
+  document.getElementById("screen1").classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+function floatHearts() {
+  const symbols = ["♡", "♥", "✦", "✧"];
+  const el = document.createElement("div");
+
+  el.className = "floating";
+  el.textContent =
+    symbols[Math.floor(Math.random() * symbols.length)];
+
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = (18 + Math.random() * 22) + "px";
+  el.style.color =
+    Math.random() > 0.5 ? "#d85b72" : "#c79a54";
+
+  document.body.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, 7200);
+}
+
+setInterval(floatHearts, 850);
+</script>
+
+</body>
+</html>
